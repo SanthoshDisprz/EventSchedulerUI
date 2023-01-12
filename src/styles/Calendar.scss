@@ -1,0 +1,75 @@
+@import "_variables.scss";
+.dates-container {
+  @include calendar-grid-conditions;
+  grid-row-gap: 14px;
+}
+.days-container {
+  @include calendar-grid-conditions;
+  margin-bottom: 15px;
+}
+.date-container {
+  padding: 2px;
+  text-align: center;
+  border-top-width: 1px;
+  font-size: 16px;
+  line-height: 20px;
+  cursor: pointer;
+  &:hover .date {
+    background-color: black;
+    color: white;
+    transition: all 0.3s ease;
+  }
+}
+.calendar-container {
+  position: absolute;
+  left: 2%;
+  top: 17%;
+  width: 22%;
+  -webkit-box-shadow: 0 10px 6px -6px #777;
+  -moz-box-shadow: 0 10px 6px -6px #777;
+  box-shadow: 0 10px 6px -6px #777;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: white;
+}
+.calendar-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+.navigation-icons-container {
+  @include flex-center;
+  gap: 20px;
+}
+.current-month {
+  color: rgb(156 163 175);
+}
+.today {
+  background-color: rgb(171, 171, 250);
+  color: white;
+}
+.selected-date {
+  background-color: black;
+  color: white;
+}
+.date {
+  width: 30px;
+  height: 28px;
+  border-radius: 40%;
+  @include flex-center;
+}
+.day {
+  color: rgb(107 114 128);
+}
+.previous-month-navigator-icon,
+.next-month-navigator-icon {
+  @include navigation-icons;
+}
+.today-icon {
+  cursor: pointer;
+}
+.month-year-container {
+  cursor: pointer;
+}

@@ -1,0 +1,28 @@
+.view-toggle-button {
+  position: absolute;
+  top: 10%;
+  left: 56%;
+  display: flex;
+  font-size: 17px;
+  border: 0.5px solid rgb(142, 141, 141);
+  width: 15%;
+  border-radius: 8px;
+  .timeline-view-button {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .list-view-button {
+    flex: 1;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .active {
+    background-color: #a2a2ff;
+    color: white;
+  }
+}

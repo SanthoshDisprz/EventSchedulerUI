@@ -1,0 +1,22 @@
+@import "./variables";
+.error-message-refresh-icon-container{
+    @include flex-center;
+    align-items: baseline;
+.weather-error-message-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    .error-message{
+        font-size: 18px;
+    }
+    .error-image{
+        width: 150px;
+    }
+}
+.refresh-icon{
+    cursor: pointer;
+    font-size: 20px;
+}
+}

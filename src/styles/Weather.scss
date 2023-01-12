@@ -1,0 +1,39 @@
+@import "./variables";
+.weather {
+  position: absolute;
+  left: 2%;
+  bottom: 3%;
+  height: 26%;
+  width: 22%;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgb(225, 173, 250);
+  background: linear-gradient(
+    120deg,
+    rgba(225, 173, 250, 1) 0%,
+    rgba(252, 180, 180, 1) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .weather-details-container {
+    @include flex-center;
+    position: absolute;
+    top: 23%;
+    .location-weather-container {
+      .location-name-icon {
+        display: flex;
+        align-items: center;
+        column-gap: 5px;
+        .current-location-icon {
+          font-size: 20px;
+          color: #4063bb;
+          cursor: pointer;
+        }
+      }
+      .temperature {
+        font-size: 25px;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "./variables";
+
+  
+
+  
+  .search-input-container {
+    @include flex-center;
+    border-radius: 8px;
+   
+
+position: absolute;
+    top: 10%;
+    left: 10%;
+    background: rgba( 255, 255, 255, 0.05 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    background-color: transparent;
+  
+ 
+  
+  
+  .search-input {
+    width: 90%;
+    height: 30px;
+    padding: 0 15px; 
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.1s ease-in-out;
+    background-color: transparent;
+  }
+  .search-icon{
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  ::placeholder {
+    color: #a1a1a1;
+  }
+  
+  /* hide the placeholder text on focus */
+  :focus::placeholder {
+    text-indent: -999px
+  }
+  
+  .search-input:focus {
+    outline: none;
+    transform: scale(1.02);
+    transition: all 0.1s ease-in-out;
+  }
+  
+  .search-input-icon {
+
+    color: #a1a1a1;
+    transition: all 0.1s ease-in-out;
+  }
+  
+  .container:focus-within > 
+  .search-input-container > .search-input-icon {
+    right: 4px;
+  }}

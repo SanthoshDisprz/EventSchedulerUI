@@ -1,0 +1,39 @@
+@import "./variables";
+
+.guest-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .guest-profile-picture-name-container {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    justify-content: space-between;
+  }
+  background: rgb(172, 182, 229);
+  background: linear-gradient(
+    120deg,
+    rgba(172, 182, 229, 1) 0%,
+    rgb(99, 190, 247) 100%
+  );
+  margin: 0 0 10px 10px;
+  padding: 5px;
+  width: 70%;
+  height: 30px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  color: white;
+  .guest-profile-picture {
+    @include flex-center;
+    background-color: pink;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+  }
+  .remove-guest {
+    cursor: pointer;
+    font-size: 20px;
+  }
+}

@@ -1,0 +1,68 @@
+@mixin calendar-grid-conditions {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  justify-items: center;
+}
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin appointment {
+  background-color: rgb(185, 185, 251);
+  color: black;
+  border-radius: 8px;
+  width: 100%;
+  position: absolute;
+  padding-left: 5px;
+  cursor: pointer;
+  z-index: 1;
+}
+@mixin icon {
+  border-radius: 14px;
+  color: rgb(108, 108, 255);
+}
+@mixin modal-popup {
+  animation: popup 0.5s;
+  @keyframes popup {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}
+@mixin stat-box {
+  @include flex-center;
+  column-gap: 10px;
+  width: 150px;
+  height: 85px;
+  border-radius: 8px;
+}
+
+@mixin stat-box-icon {
+  height: 38px;
+  width: 38px;
+  @include flex-center;
+  border-radius: 50%;
+}
+@mixin alert-icon {
+  @include flex-center;
+  padding: 10px;
+  background-color: #fef;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  animation-name: reveal;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+}
+@mixin navigation-icons {
+  font-size: 25px;
+  cursor: pointer;
+  border-radius: 14px;
+  &:hover {
+    background-color: rgb(159, 158, 158);
+  }
+}

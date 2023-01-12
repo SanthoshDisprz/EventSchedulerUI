@@ -1,0 +1,26 @@
+.appointments-list {
+  position: absolute;
+  overflow-y: auto;
+  top: 17%;
+  left: 26%;
+  width: 45%;
+  height: 80%;
+  box-shadow: 5px 5px 5px grey;
+  border-radius: 15px;
+  padding: 10px;
+  background-color: white;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+
+  &-thumb {
+    background: #888;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+    &:hover {
+      background: #555;
+    }
+  }
+}
