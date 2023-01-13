@@ -60,6 +60,8 @@ const Weather = () => {
   };
   const handleError = () => {
     setError(false);
+    setCanShowCurrentLocation(true);
+    setCanShowSearchLocation(false)
   };
 
   useEffect(() => {
