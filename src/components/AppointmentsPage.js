@@ -6,8 +6,14 @@ import ListView from "./ListView";
 import AppointmentDetails from "./AppointmentDetails";
 import dayjs from "dayjs";
 import { AppointmentContext } from "./Scheduler";
+import MonthView from "./MonthView";
+import Calendar from "./Calendar";
+import WeekView from "./WeekView";
+import MonthViewHeader from "./MonthViewHeader";
+import AppointmentsList from "./AppointmentsList";
+import DropdownButton from "./DropDownButton";
 //Appointments page which contains appointments related data (center )
-const AppointmentsPage = ({ selectedDate }) => {
+const AppointmentsPage = ({ selectedDate, selectDate }) => {
   const appointmentContext = useContext(AppointmentContext);
   //state to appointments for the selected date
   const [appointments, setAppointments] = useState([]);
@@ -17,6 +23,15 @@ const AppointmentsPage = ({ selectedDate }) => {
   const [appointmentId, setAppointmentId] = useState("");
   const [canShowDeleteModal, setCanShowDeleteModal] = useState(false);
   const [canShowUpdateModal, setCanShowUpdateModal] = useState(false);
+  const [canShowAppointmentsList, setCanShowAppointmentsList] = useState(false);
+  //state for storing today's date
+  const [today, setToday] = useState(dayjs());
+  //state for storing selected option (day or month view)
+  const [option, setOption] = useState("Day");
+  const handleToday = (date) => {
+    setToday(date);
+  };
+
   var utc = require("dayjs/plugin/utc");
   dayjs.extend(utc);
   //for agenda view - under development
@@ -26,7 +41,7 @@ const AppointmentsPage = ({ selectedDate }) => {
   const toggleTimelineView = () => {
     setCanShowListView(false);
   };
-//function for updating id for viewing appointment details
+  //function for updating id for viewing appointment details
   const appointmentIdHandler = (id) => {
     setAppointmentId(id);
   };
@@ -43,13 +58,19 @@ const AppointmentsPage = ({ selectedDate }) => {
   const handleUpdateAppointmentModal = (bool) => {
     setCanShowUpdateModal(bool);
   };
+  const handleAppointmentsList = () => {
+    setCanShowAppointmentsList(false);
+  };
+  //function for updating the selected option
+  const handleChange = (option) => {
+    setOption(option);
+  };
   //get appointments by date
   useEffect(() => {
-    // const isoString = dayjs(selectedDate).toISOString();
-    // const utcTime = dayjs(selectedDate).toISOString();
-    const utcTime = selectedDate.format("YYYY-MM-DD") + "T00:00:00Z";
+    const startTime = selectedDate.startOf("date").toISOString();
+    const endTime = selectedDate.endOf("date").toISOString();
     fetch(
-      `http://localhost:5169/api/appointments?date=${utcTime}&timeZoneOffset=${new Date().getTimezoneOffset()}`
+      `http://localhost:5169/api/appointments?from=${startTime}&to=${endTime}&timeZoneOffset=${new Date().getTimezoneOffset()}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -65,20 +86,113 @@ const AppointmentsPage = ({ selectedDate }) => {
   useEffect(() => {
     appointmentId &&
       setAppointmentDetails(
-        appointments.filter((appointment) => appointment.id == appointmentId)
+        canShowListView
+          ? appointmentsForMonth.filter(
+              (appointment) => appointment.id == appointmentId
+            )
+          : appointments.filter(
+              (appointment) => appointment.id == appointmentId
+            )
       );
   }, [appointmentId]);
+  const [appointmentsForMonth, setAppointmentsForMonth] = useState([]);
+  // const [month, setMonth] = useState(dayjs().toISOString());
+  useEffect(() => {
+    const startTime = today.startOf("month").toISOString();
+    const endTime = today.endOf("month").toISOString();
+    fetch(
+      `http://localhost:5169/api/appointments?from=${startTime}&to=${endTime}&timeZoneOffset=${new Date().getTimezoneOffset()}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setAppointmentsForMonth(data);
+      });
+  }, [
+    today,
+    appointmentContext.state.isAppointmentCreated,
+    appointmentContext.state.isAppointmentDeleted,
+    appointmentContext.state.isAppointmentUpdated,
+  ]);
+  //function to render appointments for a day in month view
+  const renderAppointments = (appointmentDate) => {
+    const appointmentsForADate = appointmentsForMonth.filter(
+      (appointment) =>
+        dayjs(appointment.startTime.substring(0, 19)).format("YYYY-MM-DD") ==
+        appointmentDate.format("YYYY-MM-DD")
+    );
+    const appointmentsLength = appointmentsForADate.length;
+    return appointmentsLength > 2 ? (
+      <>
+        <div className="appointments">
+          {appointmentsForADate.slice(0, 2).map((appointment) => (
+            <div
+              onClick={() => {
+                appointmentIdHandler(appointment.id);
+              }}
+            >
+              {appointment.title}
+            </div>
+          ))}
+        </div>
+        <div
+          onClick={() => setCanShowAppointmentsList(true)}
+          className="show-all-appointments"
+        >
+          {appointmentsLength - 2} more
+        </div>
+        {canShowAppointmentsList && (
+          <AppointmentsList
+            appointments={appointmentsForADate}
+            appointmentIdHandler={appointmentIdHandler}
+            handleAppointmentsList={handleAppointmentsList}
+          />
+        )}
+      </>
+    ) : (
+      <div className="appointments">
+        {appointmentsForADate.map((appointment) => (
+          <div onClick={() => appointmentIdHandler(appointment.id)}>
+            {appointment.title}
+          </div>
+        ))}
+      </div>
+    );
+  };
 
+  console.log(appointmentDetails);
   return (
     <div className="appointments-page">
+      <DropdownButton
+        isFromAppointmentsPage={true}
+        options={["Day", "Month"]}
+        selectedOption={option}
+        handleSelectedOption={handleChange}
+      />
       {/* <ViewToggleButton canShowListView={canShowListView} toggleListView={toggleListView} toggleTimelineView={toggleTimelineView}/> */}
+      {option == "Month" ? (
+        <MonthViewHeader
+          today={today}
+          handleToday={handleToday}
+          isFromMonthView={true}
+        />
+      ) : (
+        <WeekView selectDate={selectDate} selectedDate={selectedDate} />
+      )}
       <div className="appointments-list">
-        {canShowListView ? (
-          <ListView
-            appointments={appointments}
+        {option == "Month" ? (
+          <Calendar
+            isFromMonthView={true}
+            appointmentsForMonth={appointmentsForMonth}
             appointmentIdHandler={appointmentIdHandler}
+            today={today}
+            handleToday={handleToday}
+            renderAppointments={renderAppointments}
           />
         ) : (
+          // <ListView
+          //   appointments={appointments}
+          //   appointmentIdHandler={appointmentIdHandler}
+          // />
           <TimelineView
             appointments={appointments}
             onClickAppointment={appointmentIdHandler}

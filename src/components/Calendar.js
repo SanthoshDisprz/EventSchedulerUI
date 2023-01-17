@@ -1,19 +1,25 @@
 import "../styles/Calendar.scss";
 import { generateDate, months } from "../utils/CalendarDateGenerator";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 //calendar component
-const Calendar = ({ selectedDate, selectDate }) => {
-  //days if the week
+const Calendar = ({
+  selectedDate,
+  selectDate,
+  isFromMonthView,
+  today,
+  handleToday,
+  renderAppointments,
+}) => {
+  //days of the week
   const days = ["S", "M", "T", "W", "T", "F", "S"];
   //get current date
   const currentDate = dayjs();
-  //state for storing today;s date
-  const [today, setToday] = useState(currentDate);
 
   return (
-    <div className="calendar-container">
+    <div
+      className={`calendar-container ${isFromMonthView ? `month-view` : ""}`}
+    >
       <div className="calendar-header-container">
         <div className="month-year-container">
           {months[today.month()]} {today.year()}
@@ -23,13 +29,13 @@ const Calendar = ({ selectedDate, selectDate }) => {
             className="previous-month-navigator-icon"
             title="Previous Month"
             onClick={() => {
-              setToday(today.month(today.month() - 1));
+              handleToday(today.month(today.month() - 1));
             }}
           />
           <div
             className="today-icon"
             onClick={() => {
-              setToday(currentDate);
+              handleToday(currentDate);
               selectDate(currentDate);
             }}
           >
@@ -39,7 +45,7 @@ const Calendar = ({ selectedDate, selectDate }) => {
             className="next-month-navigator-icon"
             title="Next Month"
             onClick={() => {
-              setToday(today.month(today.month() + 1));
+              handleToday(today.month(today.month() + 1));
             }}
           />
         </div>
@@ -63,18 +69,23 @@ const Calendar = ({ selectedDate, selectDate }) => {
                   className={`${currentMonth ? "" : "current-month"}
                     ${today ? "today" : ""}
                     ${
+                      selectedDate &&
                       selectedDate.toDate().toDateString() ===
-                      date.toDate().toDateString()
+                        date.toDate().toDateString()
                         ? "selected-date"
                         : ""
                     }
                     date`}
                   onClick={() => {
-                    selectDate(date);
+                    !isFromMonthView && selectDate(date);
                   }}
                 >
                   {date.date()}
+                  {/* {console.log(appointmentsForMonth)} */}
+                  {/* {appointmentsForMonth && appointmentsForMonth.filter(appointment=>dayjs(appointment.startTime).format("YYYY-MM-DD")==date.format("YYYY-MM-DD")).map(appointment=><div>{appointment.title}</div>)} */}
                 </div>
+                {isFromMonthView && renderAppointments(date)}
+                {/* {isFromMonthView && <div>{appointmentsForMonth && appointmentsForMonth.filter(appointment=>dayjs(appointment.startTime).format("YYYY-MM-DD")==date.format("YYYY-MM-DD")).map(appointment=><div>{appointment.title}</div>)}</div>} */}
               </div>
             );
           }

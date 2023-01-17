@@ -1,6 +1,6 @@
 import "../styles/CreateAppointment.scss";
 import { BsPlusLg } from "react-icons/bs";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AppointmentContext } from "./Scheduler";
 //Create Appointment Button
 const CreateAppointment = () => {

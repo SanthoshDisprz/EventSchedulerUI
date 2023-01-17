@@ -8,6 +8,7 @@ import GuestsList from "./GuestsList";
 import GuestsListInput from "./GuestsListInput";
 import TextareaAutosize from "react-textarea-autosize";
 import { AlertContext, AppointmentContext } from "./Scheduler";
+import axios from "axios";
 //component for update modal
 const UpdateAppointmentModal = ({
   appointmentDetails,
@@ -80,32 +81,24 @@ const UpdateAppointmentModal = ({
     event.preventDefault();
     if (appointment.title.replace(/\s/g, "") === "") return;
     try {
-      await fetch(
+    const response =  await axios.put(
         `http://localhost:5169/api/appointments/${appointmentDetails.id}`,
-        {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(appointmentsInISOString),
-        }
-      ).then((res) => {
-        if (res.status === 200) {
+       appointmentsInISOString
+      );
+        if (response.status === 200) {
           appointmentContext.dispatch({
             type: "UPDATE_APPOINTMENT",
           });
           updateAppointmentModal(false);
           closeAppointmentDetails();
           alertContext.handleAlert(true, "Appointment Updated", "Success");
-        } else if (res.status === 409) {
-          alertContext.handleAlert(true, "Conflict Occured", "Error");
-        } else {
-          alertContext.handleAlert(true, "Error", "Error");
-        }
-      });
+        } 
     } catch (e) {
-      console.log(e);
+      if (e.response.status === 409) {
+        alertContext.handleAlert(true, "Conflict Occured", "Error");
+      } else {
+        alertContext.handleAlert(true, e.response.data.errorMessage, "Error");
+      }
     }
   };
 

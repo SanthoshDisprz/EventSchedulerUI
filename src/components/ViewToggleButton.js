@@ -11,13 +11,13 @@ const ViewToggleButton = ({
         className={`timeline-view-button ${!canShowListView && `active`}`}
         onClick={toggleTimelineView}
       >
-        Timeline
+        Day
       </div>
       <div
         className={`list-view-button ${canShowListView && `active`}`}
         onClick={toggleListView}
       >
-        List
+        Month
       </div>
     </div>
   );

@@ -55,6 +55,11 @@ const Scheduler = () => {
   const selectDate = (date) => {
     setSelectedDate(date);
   };
+  //state for storing today's date
+  const [today, setToday] = useState(dayjs());
+  const handleToday=(date)=>{
+    setToday(date)
+  }
 
   //to display alert box for 4 seconds
   useEffect(() => {
@@ -73,12 +78,12 @@ const Scheduler = () => {
             alertMessage={alert.alertMessage}
           />
         )}
-        <Calendar selectDate={selectDate} selectedDate={selectedDate} />
+        <Calendar selectDate={selectDate} selectedDate={selectedDate} today={today} handleToday={handleToday}/>
         {appointmentState.canShowCreateAppointmentModal && <CreateAppointmentModal />}
         <CreateAppointment />
-        <WeekView selectDate={selectDate} selectedDate={selectedDate}/>
+        {/* <WeekView selectDate={selectDate} selectedDate={selectedDate}/> */}
         <Weather />
-        <AppointmentsPage selectedDate={selectedDate} />
+        <AppointmentsPage selectedDate={selectedDate} selectDate={selectDate}/>
         <Analytics />
       </AlertContext.Provider>
     </AppointmentContext.Provider>

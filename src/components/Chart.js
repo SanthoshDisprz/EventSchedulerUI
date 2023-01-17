@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import BarPlot from "./BarPlot";
 import "../styles/Chart.scss";
 const SVG_WIDTH = 400;
@@ -23,7 +23,7 @@ function Chart({ weekData }) {
   const yAxisLength = SVG_HEIGHT - y0 * 2;
 
   const xAxisY = y0 + yAxisLength;
-//finding maximum and minimum values
+  //finding maximum and minimum values
   const dataYMax = data.reduce(
     (currMax, [x, dataY]) => Math.max(currMax, dataY),
     0
@@ -33,7 +33,7 @@ function Chart({ weekData }) {
     0
   );
   const dataYRange = dataYMax - dataYMin;
-//number of y axis values
+  //number of y axis values
   const numYTicks = 5;
 
   const barPlotWidth = xAxisLength / data.length;

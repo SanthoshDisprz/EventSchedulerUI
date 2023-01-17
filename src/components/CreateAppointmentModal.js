@@ -8,6 +8,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import GuestsList from "./GuestsList";
 import GuestsListInput from "./GuestsListInput";
 import { AlertContext, AppointmentContext } from "./Scheduler";
+import axios from "axios";
 //create appointment modal
 const CreateAppointmentModal = () => {
   const alertContext = useContext(AlertContext);
@@ -79,16 +80,12 @@ const CreateAppointmentModal = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     if (appointment.title.replace(/\s/g, "") === "") return;
-
-    await fetch("http://localhost:5169/api/appointments", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(appointmentsInISOString),
-    }).then((res) => {
-      if (res.statusText === "Created") {
+    try {
+      const response = await axios.post(
+        "http://localhost:5169/api/appointments",
+        appointmentsInISOString
+      );
+      if (response.data == true) {
         appointmentContext.dispatch({
           type: "CREATE_APPOINTMENT_MODAL",
           payload: false,
@@ -97,12 +94,14 @@ const CreateAppointmentModal = () => {
           type: "CREATE_APPOINTMENT",
         });
         alertContext.handleAlert(true, "Appointment Created", "Success");
-      } else if (res.statusText === "Conflict") {
+      }
+    } catch (err) {
+      if (err.response.data.statusCode === 409) {
         alertContext.handleAlert(true, "Conflict Occured", "Error");
-      } else alertContext.handleAlert(true, "Error Occured", "Error");
-    });
+      } else
+        alertContext.handleAlert(true, err.response.data.errorMessage, "Error");
+    }
   };
-
   return ReactDOM.createPortal(
     <div
       className="modal-background"

@@ -8,10 +8,10 @@ import { AppointmentContext } from "./Scheduler";
 const Analytics = ({ onCreateAppointment }) => {
   const apppointmentContext = useContext(AppointmentContext);
   //state for storing the selected option from the duration drop-down button
-  const [option, setOption] = useState("Week");
+  const [option, setOption] = useState("Current Week");
   //function for updating the selected option
-  const handleChange = (event) => {
-    setOption(event.target.value);
+  const handleChange = (option) => {
+    setOption(option);
   };
   //states for storing the datas needed for analytics
   const [allAppointments, setAllAppointments] = useState([]);
@@ -31,7 +31,10 @@ const Analytics = ({ onCreateAppointment }) => {
 
   //get appointments data based on the selected option from drop-down button
   useEffect(() => {
-    fetch(`http://localhost:5169/api/appointments?duration=${option}`)
+    const selectedOption = option.split(" ")[1];
+    const startTime = dayjs().startOf(selectedOption).toISOString();
+    const endTime = dayjs().endOf(selectedOption).toISOString();
+    fetch(`http://localhost:5169/api/appointments?from=${startTime}&to=${endTime}&timeZoneOffset=${new Date().getTimezoneOffset()}`)
       .then((response) => response.json())
       .then((data) => setAllAppointments(data));
   }, [
@@ -110,7 +113,7 @@ const Analytics = ({ onCreateAppointment }) => {
 
   return (
     <>
-      <DropDownButton option={option} onChange={handleChange} />
+      <DropDownButton options={["Current Week", "Current Month", "Current Year"]} selectedOption={option} handleSelectedOption={handleChange} />
       <Insights
         noOfAppointments={noOfAppointments}
         totalHours={totalHours}
