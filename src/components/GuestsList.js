@@ -3,7 +3,7 @@ import "../styles/GuestsList.scss";
 //show guest list while adding in input
 const GuestsList = ({ guestsList, deleteGuestHandler }) => {
   return (
-    guestsList.length > 0 && (
+    guestsList?.length > 0 && (
       <div>
         {guestsList.map((guest, index) => (
           <div className="guest-profile" key={index}>

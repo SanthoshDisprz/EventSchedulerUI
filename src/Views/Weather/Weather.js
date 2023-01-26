@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import "../styles/Weather.scss";
-import Loader from "./Loader";
-import SearchButton from "./SearchButton";
+import "../../styles/Weather.scss";
+import Loader from "../../components/Loader";
+import SearchButton from "../../components/SearchButton";
 import WeatherErrorMessage from "./WeatherErrorMessage";
 import WeatherIcon from "./WeatherIcon";
 import { TfiLocationPin } from "react-icons/tfi";
@@ -17,6 +17,7 @@ const Weather = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [canShowSearchLocation, setCanShowSearchLocation] = useState(false);
   const [canShowCurrentLocation, setCanShowCurrentLocation] = useState(true);
+  const [searchInput, setSearchInput] = useState("")
   //function to store latitude and longitude of current locstion
   const savePositionToState = (position) => {
     setLatitude(position.coords.latitude);
@@ -63,6 +64,9 @@ const Weather = () => {
     setCanShowCurrentLocation(true);
     setCanShowSearchLocation(false)
   };
+  const handleSearchInput=(input)=>{
+    setSearchInput(input);
+  }
 
   useEffect(() => {
     fetchWeather();
@@ -74,12 +78,16 @@ const Weather = () => {
         location={location}
         handleSearchLocation={handleSearchLocation}
         handleCurrentLocation={handleCurrentLocation}
+        searchInput={searchInput}
+        handleSearchInput={handleSearchInput}
+        isFromWeather={true}
+        placeholder="Search city"
       />
 
       {error ? (
         <WeatherErrorMessage handleError={handleError} />
       ) : !temperature || !weather || !location ? (
-        <Loader />
+        <Loader isFromWeather={true}/>
       ) : (
         // {error ? <WeatherErrorMessage /> :
         <div className="weather-details-container">

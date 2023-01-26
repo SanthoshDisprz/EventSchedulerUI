@@ -17,7 +17,8 @@
     top: 10%;
     width: 160px;
     height: 40px;
-    background-color: white;
+    background-color: rgb(171, 171, 250);
+    color: white;
     display: flex;
     justify-content: center;
     column-gap: 5px;
@@ -43,15 +44,36 @@
     top: 100%;
     display: block;
     background-color: white;
+    color: black;
     width: 100%;
     border-radius: 8px;
+    animation: rotate-menu 400ms ease-in-out forwards;
+    transform-origin: top center;
+    border: 1px solid rgb(171, 171, 250);
+
+    
+@keyframes rotate-menu {
+    0% {
+        transform: rotateX(-90deg)
+    }
+    70% {
+        transform: rotateX(20deg) 
+    }
+    100% {
+        transform: rotateX(0deg) 
+    }
+}
     // display: flex;
     // flex-direction: column;
     // align-items: center;
     // row-gap: 5px;
     .dropdown-option{
         padding: 5px 0 5px 25px;
-        border-radius: 8px;
+        // border-radius: 8px;
+        border-bottom: 1px solid rgb(171, 171, 250);
+        &:last-child{
+            border: 0;
+        }
         &:hover{
             color: white;
             background-color: rgb(141, 141, 255);
@@ -62,6 +84,6 @@
 .appointments-view-dropdown{
     left: 28%;
     top: 9.5%;
-    height: 42px;
+    height: 40px;
     width: 95px;
 }

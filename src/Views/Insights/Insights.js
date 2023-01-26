@@ -1,9 +1,9 @@
 import StatBox from "./StatBox";
-import "../styles/Insights.scss";
-import Calendar from "../assets/statBoxIcons/Calendar.svg";
-import Time from "../assets/statBoxIcons/Time.svg";
-import Average from "../assets/statBoxIcons/Average.svg";
-import RemainingMeetings from "../assets/statBoxIcons/Remaining.svg";
+import "../../styles/Insights.scss";
+import Calendar from "../../assets/statBoxIcons/Calendar.svg";
+import Time from "../../assets/statBoxIcons/Time.svg";
+import Average from "../../assets/statBoxIcons/Average.svg";
+import RemainingMeetings from "../../assets/statBoxIcons/Remaining.svg";
 //insights data about current week, month, year
 const Insights = ({
   totalHours,

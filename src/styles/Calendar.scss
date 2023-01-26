@@ -45,7 +45,7 @@
     @include calendar-grid-conditions;
     grid-row-gap: 14px;
     .date-container {
-      position: relative;
+      // position: relative;
       padding: 2px;
       text-align: center;
       border-top-width: 1px;
@@ -103,6 +103,7 @@
     grid-template-rows: repeat(6, minmax(0, 91.5px));
     grid-row-gap: 0;
     .date-container{
+      padding: 0 5px 0 5px;
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -116,8 +117,8 @@
         transition: none;
       }
       &:hover .today{
-        background-color: rgb(171, 171, 250);
-        color: white;
+        background-color: white;
+        color: rgb(64, 64, 235);
       }
 
       .today, .selected-date {
@@ -145,14 +146,15 @@
         border-bottom-left-radius: 8px;
       }
       .date{
-        width: 28px;
-        height: 25px;
+        width: 25px;
+        height: 21px;
+        border-radius: 40%;
 
       }
         .today {
 
-          background-color: rgb(171, 171, 250);
-          color: white;
+          background-color: white;
+          color: rgb(64, 64, 235);
           }
         
       

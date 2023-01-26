@@ -1,34 +1,39 @@
-import "../styles/CreateAppointmentModal.scss";
+import "../../styles/CreateAppointmentModal.scss";
 import { React, useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import dayjs from "dayjs";
 import { BsHourglassTop, BsHourglassBottom } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
 import TextareaAutosize from "react-textarea-autosize";
-import GuestsList from "./GuestsList";
-import GuestsListInput from "./GuestsListInput";
-import { AlertContext, AppointmentContext } from "./Scheduler";
+import GuestsList from "../../components/GuestsList";
+import GuestsListInput from "../../components/GuestsListInput";
+import { AlertContext, AppointmentContext } from "../Scheduler/Scheduler";
 import axios from "axios";
+import Loader from "../../components/Loader";
+
 //create appointment modal
-const CreateAppointmentModal = () => {
+const CreateAppointmentModal = ({ selectedDate, appointmentData }) => {
   const alertContext = useContext(AlertContext);
   const appointmentContext = useContext(AppointmentContext);
   //state to store the appointment details while creating appointment
   const [appointment, setAppointment] = useState({
     title: "",
-    startTime: dayjs().add(10, "minutes").format("YYYY-MM-DDTHH:mm"),
-    endTime: dayjs()
+    startTime: dayjs(selectedDate).add(10, "minutes").format("YYYY-MM-DDTHH:mm"),
+    endTime: dayjs(selectedDate)
       .add(10, "minutes")
       .add(1, "hour")
       .format("YYYY-MM-DDTHH:mm"),
     timeZoneOffset: new Date().getTimezoneOffset(),
     description: "",
-    createdBy: "santhosh.t@disprz.com",
+    createdBy: "santhoshtirumeni@gmail.com",
     guestsList: [],
     location: "",
   });
+  const [canShowEmptyTitleAlert, setCanShowEmptyTitleAlert] = useState(false);
+  const [canShowLoader, setCanShowLoader] = useState(false);
   //state updating functions for handling
   const appointmentTitleInputHandler = (event) => {
+    canShowEmptyTitleAlert && setCanShowEmptyTitleAlert(false);
     setAppointment({ ...appointment, title: event.target.value });
   };
   const appointmentStartTimeInputHandler = (event) => {
@@ -79,13 +84,15 @@ const CreateAppointmentModal = () => {
   //function for creating the appointment
   const submitHandler = async (event) => {
     event.preventDefault();
-    if (appointment.title.replace(/\s/g, "") === "") return;
+    if (appointment.title.replace(/\s/g, "") === "") { setCanShowEmptyTitleAlert(true); return; }
+    setCanShowLoader(true);
     try {
       const response = await axios.post(
         "http://localhost:5169/api/appointments",
         appointmentsInISOString
       );
       if (response.data == true) {
+        setTimeout(() => setCanShowLoader(false), 1000);
         appointmentContext.dispatch({
           type: "CREATE_APPOINTMENT_MODAL",
           payload: false,
@@ -96,8 +103,9 @@ const CreateAppointmentModal = () => {
         alertContext.handleAlert(true, "Appointment Created", "Success");
       }
     } catch (err) {
+      setTimeout(() => setCanShowLoader(false), 1000);
       if (err.response.data.statusCode === 409) {
-        alertContext.handleAlert(true, "Conflict Occured", "Error");
+        alertContext.handleAlert(true, "Already an appointment exists in the given time", "Error");
       } else
         alertContext.handleAlert(true, err.response.data.errorMessage, "Error");
     }
@@ -112,11 +120,11 @@ const CreateAppointmentModal = () => {
         })
       }
     >
+      {canShowLoader && <Loader />}
       <form
         className="modal-container"
         onClick={(e) => e.stopPropagation()}
         onSubmit={submitHandler}
-        // onKeyUp={(e)=>e.key=="Enter"&&e.preventDefault()}
       >
         <div className="create-appointment-header">
           <div className="create-appointment-heading">
@@ -130,7 +138,6 @@ const CreateAppointmentModal = () => {
                 type: "CREATE_APPOINTMENT_MODAL",
                 payload: false,
               });
-              // createAppointmentContext.createAppointmentModalHandler(false);
             }}
           />
         </div>
@@ -146,6 +153,7 @@ const CreateAppointmentModal = () => {
             required
             spellCheck="false"
           />
+          {canShowEmptyTitleAlert && <div className="empty-title-alert">Title is required</div>}
           <div className="appointment-period-container">
             <div className="icon-label-container">
               <BsHourglassTop />

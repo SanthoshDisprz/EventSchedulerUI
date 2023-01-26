@@ -1,4 +1,4 @@
-import "../styles/StatBox.scss";
+import "../../styles/StatBox.scss";
 //stat box for insights data
 const StatBox = ({ icon, title, data }) => {
   return (

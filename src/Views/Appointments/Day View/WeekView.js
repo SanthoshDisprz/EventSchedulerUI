@@ -1,7 +1,6 @@
-import "../styles/WeekView.scss";
+import "../../../styles/WeekView.scss";
 import dayjs from "dayjs";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
-import { useEffect, useState } from "react";
 //component for showing current week's dates above timeline
 const WeekView = ({ selectedDate, selectDate }) => {
   const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

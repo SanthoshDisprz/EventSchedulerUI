@@ -1,14 +1,15 @@
-import "../styles/CreateAppointmentModal.scss";
+import "../../styles/CreateAppointmentModal.scss";
 import { React, useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import dayjs from "dayjs";
 import { BsHourglassTop, BsHourglassBottom } from "react-icons/bs";
 import { MdOutlineClose } from "react-icons/md";
-import GuestsList from "./GuestsList";
-import GuestsListInput from "./GuestsListInput";
+import GuestsList from "../../components/GuestsList";
+import GuestsListInput from "../../components/GuestsListInput";
 import TextareaAutosize from "react-textarea-autosize";
-import { AlertContext, AppointmentContext } from "./Scheduler";
+import { AlertContext, AppointmentContext } from "../Scheduler/Scheduler";
 import axios from "axios";
+import Loader from "../../components/Loader";
 //component for update modal
 const UpdateAppointmentModal = ({
   appointmentDetails,
@@ -29,6 +30,7 @@ const UpdateAppointmentModal = ({
     location: appointmentDetails.location,
     timeZoneOffset: new Date().getTimezoneOffset(),
   });
+  const [canShowLoader, setCanShowLoader] = useState(false);
 
   const appointmentTitleInputHandler = (event) => {
     setAppointment({ ...appointment, title: event.target.value });
@@ -80,12 +82,14 @@ const UpdateAppointmentModal = ({
   const submitHandler = async (event) => {
     event.preventDefault();
     if (appointment.title.replace(/\s/g, "") === "") return;
+    setCanShowLoader(true);
     try {
     const response =  await axios.put(
         `http://localhost:5169/api/appointments/${appointmentDetails.id}`,
        appointmentsInISOString
       );
         if (response.status === 200) {
+          setTimeout(()=>setCanShowLoader(false), 1000);
           appointmentContext.dispatch({
             type: "UPDATE_APPOINTMENT",
           });
@@ -94,8 +98,9 @@ const UpdateAppointmentModal = ({
           alertContext.handleAlert(true, "Appointment Updated", "Success");
         } 
     } catch (e) {
+      setTimeout(()=>setCanShowLoader(false), 1000);
       if (e.response.status === 409) {
-        alertContext.handleAlert(true, "Conflict Occured", "Error");
+        alertContext.handleAlert(true, "Already an appointment exists in the given time", "Error");
       } else {
         alertContext.handleAlert(true, e.response.data.errorMessage, "Error");
       }
@@ -107,6 +112,7 @@ const UpdateAppointmentModal = ({
       className="modal-background"
       onClick={() => updateAppointmentModal(false)}
     >
+      {canShowLoader && <Loader />}
       <form
         className="modal-container"
         onClick={(e) => e.stopPropagation()}

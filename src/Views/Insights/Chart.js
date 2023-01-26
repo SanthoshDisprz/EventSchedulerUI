@@ -1,6 +1,6 @@
 import React from "react";
 import BarPlot from "./BarPlot";
-import "../styles/Chart.scss";
+import "../../styles/Chart.scss";
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 300;
 //chart component in which svg is rendered based on the weekly appointment duration data

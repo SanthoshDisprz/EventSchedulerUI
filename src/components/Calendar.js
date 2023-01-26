@@ -68,12 +68,11 @@ const Calendar = ({
                 <div
                   className={`${currentMonth ? "" : "current-month"}
                     ${today ? "today" : ""}
-                    ${
-                      selectedDate &&
+                    ${selectedDate &&
                       selectedDate.toDate().toDateString() ===
-                        date.toDate().toDateString()
-                        ? "selected-date"
-                        : ""
+                      date.toDate().toDateString()
+                      ? "selected-date"
+                      : ""
                     }
                     date`}
                   onClick={() => {

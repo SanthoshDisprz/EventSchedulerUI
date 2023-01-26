@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/WeatherIcon.scss";
+import "../../styles/WeatherIcon.scss";
 //rendering different icons based on different weather datas
 const WeatherIcon = ({ icon }) => {
   let [weatherIcon, setWeatherIcon] = useState("");

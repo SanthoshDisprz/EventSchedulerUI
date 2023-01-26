@@ -1,9 +1,9 @@
-import "../styles/TimelineView.scss";
+import "../../../styles/TimelineView.scss";
 import dayjs from "dayjs";
 import { useContext } from "react";
-import { AppointmentContext } from "./Scheduler";
+import { AppointmentContext } from "../../../Views/Scheduler/Scheduler";
 //timeline view component
-const TimelineView = ({ appointments, appointmentIdHandler }) => {
+const TimelineView = ({ appointments, appointmentDetailsHandler, selectedDate }) => {
   const appointmentContext = useContext(AppointmentContext);
   //generate time for timeline view
   const time = ["12 AM"];
@@ -28,6 +28,7 @@ const TimelineView = ({ appointments, appointmentIdHandler }) => {
     const positionTopFactor = 100 / 60; //Each div contains 60 minutes, assuming 60 mins as top 100%, for one minute the top value should be 100/60 (i.e) 1.67
     return `${minutes * positionTopFactor}%`;
   };
+  
   //function for finding the appointment height based on the duration
   const appointmentHeightFinder = (startTime, endTime) => {
     const appointmentDuration = dayjs(endTime).diff(dayjs(startTime), "minute");
@@ -141,6 +142,9 @@ const TimelineView = ({ appointments, appointmentIdHandler }) => {
             })
           }
         >
+          {dayjs(selectedDate).format("YYYY-MM-DD").toString()===dayjs().format("YYYY-MM-DD").toString()&& dayjs().format("h A").toString()===time&&<div style={{position: "absolute", top: `${appointmentPositionFinder(
+                    dayjs().format("YYYY-MM-DDTHH:mm:ss")
+                  )}`}} className="current-time-indicator"></div>}
           <div className="time">{time}</div>
           <div className="appointments">
             {appointmentTimeIntervalFinder(time)?.map((event, index) => (
@@ -173,7 +177,8 @@ const TimelineView = ({ appointments, appointmentIdHandler }) => {
                 className={`appointment`}
                 key={index}
                 onClick={(e) => {
-                  appointmentIdHandler(event.id);
+                  appointmentDetailsHandler(event);
+                  // appointmentIdHandler(event.id);
                   e.stopPropagation();
                 }}
               >

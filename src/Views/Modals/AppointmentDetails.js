@@ -1,6 +1,5 @@
-import "../styles/AppointmentDetails.scss";
+import "../../styles/AppointmentDetails.scss";
 import { MdOutlineEdit, MdDeleteOutline, MdOutlineClose } from "react-icons/md";
-import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import ReactDOM from "react-dom";
 import DeleteAppointmentModal from "./DeleteAppointmentModal";
@@ -11,7 +10,7 @@ import { TbFileDescription } from "react-icons/tb";
 import { SlPeople, SlLocationPin } from "react-icons/sl";
 //appointment details modal which will open when the appointment is clicked
 const AppointmentDetails = ({
-  appointment,
+  appointmentDetails,
   closeAppointmentDetails,
   canShowDeleteModal,
   canShowUpdateModal,
@@ -19,28 +18,28 @@ const AppointmentDetails = ({
   updateAppointmentModal,
 }) => {
   //selected appointment
-  const [appointmentDetails] = appointment;
+  // const appointmentDetails = appointment;
   const currentDateTime = new Date();
   const appointmentStartDateTime = dayjs(
-    appointmentDetails.startTime.substring(0, 19)
+    appointmentDetails.startTime?.substring(0, 19)
   );
   //function for dynamically update the modal's height based on the content inside in it
   const modalHeightFinder = () => {
     if (
-      appointmentDetails.guestsList.length > 0 &&
+      appointmentDetails.guestsList?.length > 0 &&
       (appointmentDetails.location !== "" ||
         appointmentDetails.description !== "")
     )
-      return "50%";
-    else if (appointmentDetails.description.length > 20) return "45%";
+      return "55%";
+    else if (appointmentDetails.description?.length > 20) return "45%";
     else if (
-      appointmentDetails.guestsList.length == 0 &&
+      appointmentDetails.guestsList?.length == 0 &&
       appointmentDetails.location == "" &&
       appointmentDetails.description == ""
     )
       return "30%";
     else if (
-      appointmentDetails.guestsList.length == 0 &&
+      appointmentDetails.guestsList?.length == 0 &&
       (appointmentDetails.location == "" ||
         appointmentDetails.description == "")
     )
@@ -72,6 +71,8 @@ const AppointmentDetails = ({
           onClick={(event) => event.stopPropagation()}
           style={{ height: `${modalHeightFinder()}` }}
         >
+          <div className="appointment-details-header">
+          <div className="appointment-details-title">Appointment Details</div>
           <div className="options">
             {currentDateTime < appointmentStartDateTime && (
               <>
@@ -93,43 +94,45 @@ const AppointmentDetails = ({
               onClick={() => closeAppointmentDetails()}
             />
           </div>
+          </div>
           <div className="appointment-details">
             <div className="appointment-title">{appointmentDetails.title}</div>
             <div className="appointment-date">
               <BsCalendarCheck className="appointment-details-icon" />
 
-              {dayjs(appointmentDetails.startTime.substring(0, 19)).format(
+              {dayjs(appointmentDetails.startTime?.substring(0, 19)).format(
                 "dddd"
               ) +
                 ", " +
-                dayjs(appointmentDetails.startTime.substring(0, 19)).format(
+                dayjs(appointmentDetails.startTime?.substring(0, 19)).format(
                   "MMMM"
                 ) +
                 " " +
-                dayjs(appointmentDetails.startTime.substring(0, 19)).format(
+                dayjs(appointmentDetails.startTime?.substring(0, 19)).format(
                   "D"
                 )}
             </div>
             <div className="appointment-time">
               <BiTimeFive className="appointment-details-icon" />
-              {dayjs(appointmentDetails.startTime.substring(0, 19)).format(
+              {dayjs(appointmentDetails.startTime?.substring(0, 19)).format(
                 "h:mm A"
               )}{" "}
               -
-              {dayjs(appointmentDetails.endTime.substring(0, 19)).format(
+              {dayjs(appointmentDetails.endTime?.substring(0, 19)).format(
                 "h:mm A"
               )}
             </div>
 
-            {appointmentDetails.guestsList.length > 0 && (
+            {appointmentDetails.guestsList?.length > 0 && (
               <div className="appointment-guests">
                 <SlPeople className="appointment-details-icon" />
-                <div>
+                <div className="organizer-guests-container">
                   <div className="guest">
-                    {appointmentDetails.createdBy} (Organizer)
+                    <div className="guest-profile-picture">{appointmentDetails?.createdBy[0].toUpperCase()}</div>
+                    <div>{appointmentDetails?.createdBy} (Organizer)</div>
                   </div>
-                  {appointmentDetails.guestsList.map((guest) => (
-                    <div className="guest">{guest}</div>
+                  {appointmentDetails.guestsList?.map((guest) => (
+                    <div className="guest-mail-addresses"><div className="guest-profile-picture">{guest[0].toUpperCase()}</div><div>{guest}</div></div>
                   ))}
                 </div>
               </div>
@@ -137,14 +140,14 @@ const AppointmentDetails = ({
             {appointmentDetails.location && (
               <div className="appointment-location">
                 <SlLocationPin className="appointment-details-icon" />
-                {appointmentDetails.location}
+                {appointmentDetails?.location}
               </div>
             )}
             {appointmentDetails.description && (
               <div className="appointment-description">
                 <TbFileDescription className="appointment-details-icon" />
                 <pre className="description">
-                  {appointmentDetails.description}
+                  {appointmentDetails?.description}
                 </pre>
               </div>
             )}

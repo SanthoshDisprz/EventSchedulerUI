@@ -1,6 +1,6 @@
 import { TbRefresh } from "react-icons/tb";
-import svg from "../assets/something-went-wrong.svg";
-import "../styles/WeatherErrorMessage.scss";
+import svg from "../../assets/something-went-wrong.svg";
+import "../../styles/WeatherErrorMessage.scss";
 //error message component
 const WeatherErrorMessage = ({ handleError }) => {
   return (

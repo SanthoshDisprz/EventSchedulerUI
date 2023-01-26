@@ -1,9 +1,10 @@
 import { useContext, useEffect, useMemo, useState } from "react";
-import Chart from "./Chart";
-import DropDownButton from "./DropDownButton";
-import Insights from "./Insights";
+import Chart from "../Insights/Chart";
+import DropDownButton from "../../components/DropDownButton";
+import Insights from "../Insights/Insights";
 import dayjs from "dayjs";
-import { AppointmentContext } from "./Scheduler";
+import { AppointmentContext } from "../Scheduler/Scheduler";
+import axios from "axios";
 //component for showing insights and analytics
 const Analytics = ({ onCreateAppointment }) => {
   const apppointmentContext = useContext(AppointmentContext);
@@ -31,12 +32,14 @@ const Analytics = ({ onCreateAppointment }) => {
 
   //get appointments data based on the selected option from drop-down button
   useEffect(() => {
-    const selectedOption = option.split(" ")[1];
-    const startTime = dayjs().startOf(selectedOption).toISOString();
-    const endTime = dayjs().endOf(selectedOption).toISOString();
-    fetch(`http://localhost:5169/api/appointments?from=${startTime}&to=${endTime}&timeZoneOffset=${new Date().getTimezoneOffset()}`)
-      .then((response) => response.json())
-      .then((data) => setAllAppointments(data));
+    const getDataForDuration = async () => {
+      const selectedOption = option.split(" ")[1];
+      const startTime = dayjs().startOf(selectedOption).toISOString();
+      const endTime = dayjs().endOf(selectedOption).toISOString();
+      const response = await axios.get(`http://localhost:5169/api/appointments?from=${startTime}&to=${endTime}&timeZoneOffset=${new Date().getTimezoneOffset()}`)
+      setAllAppointments(response.data)
+    }
+    getDataForDuration();
   }, [
     apppointmentContext.state.isAppointmentCreated,
     apppointmentContext.state.isAppointmentDeleted,
@@ -53,9 +56,9 @@ const Analytics = ({ onCreateAppointment }) => {
       allAppointments &&
       allAppointments.reduce(
         (totalDuration, appointment) =>
-          (totalDuration +=
-            dayjs(appointment.endTime).diff(dayjs(appointment.startTime), "m") /
-            60),
+        (totalDuration +=
+          dayjs(appointment.endTime).diff(dayjs(appointment.startTime), "m") /
+          60),
         0
       );
 
@@ -83,11 +86,11 @@ const Analytics = ({ onCreateAppointment }) => {
         )
         .reduce(
           (totalDuration, appointment) =>
-            (totalDuration +=
-              dayjs(appointment.endTime).diff(
-                dayjs(appointment.startTime),
-                "m"
-              ) / 60),
+          (totalDuration +=
+            dayjs(appointment.endTime).diff(
+              dayjs(appointment.startTime),
+              "m"
+            ) / 60),
           0
         );
     const mondayData = weeklyAnalytics("Monday");
