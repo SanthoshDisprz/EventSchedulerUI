@@ -1,0 +1,22 @@
+.create-appointment-button {
+	display: flex;
+	align-items: center;
+	width: fit-content;
+	column-gap: 8px;
+	position: absolute;
+	left: 2%;
+	top: 9%;
+	background-color: #ADA2FF;
+    color: white;
+	border-radius:42px;
+	cursor:pointer;
+	font-size:16px;
+	padding:13px 19px;
+	text-decoration:none;
+	
+	.add-icon{
+		font-size: 25px;
+	}
+	
+
+}

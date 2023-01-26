@@ -1,0 +1,42 @@
+@import "./variables";
+.week-view {
+  position: absolute;
+  left: 35%;
+  top: 9%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 22px;
+
+  .day-date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 45px;
+    height: 50px;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover {
+      background: rgb(171, 171, 250);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: white;
+    }
+    .week-day {
+      font-size: 14px;
+    }
+  }
+  .week-view-selected-date {
+    background-color: rgb(171, 171, 250);
+    color: white;
+  }
+
+  .previous-week-icon,
+  .next-week-icon {
+    @include navigation-icons;
+  }
+}

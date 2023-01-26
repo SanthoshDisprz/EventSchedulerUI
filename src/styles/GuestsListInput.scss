@@ -1,0 +1,14 @@
+.guest-list{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid grey;
+    width: 100%;
+    input{
+        outline: none;
+        width: 100%;
+    }
+    .add-guest-icon{
+        cursor: pointer;
+        font-size: 18px;
+    }
+}

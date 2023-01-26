@@ -1,0 +1,83 @@
+@import "../styles/variables";
+.stat-box {
+  &-meetings {
+    @include stat-box;
+    color: rgb(53 105 206);
+    background-color: rgb(229 246 254);
+    .icon-container {
+      @include stat-box-icon;
+      background-color: rgb(141, 205, 255);
+
+      .icon {
+        padding: 1px;
+        margin-right: 2px;
+        width: 22px;
+      }
+    }
+    .data-container {
+      .data-title {
+        font-weight: 600;
+      }
+    }
+  }
+  &-time {
+    @include stat-box;
+    justify-content: flex-start;
+    padding-left: 20px;
+    color: rgb(86 74 140);
+    background-color: rgb(235 232 248);
+    .icon-container {
+      @include stat-box-icon;
+      background-color: rgb(202, 193, 246);
+
+      .icon {
+        width: 22px;
+      }
+    }
+    .data-container {
+      .data-title {
+        font-weight: 600;
+      }
+    }
+  }
+  &-average {
+    @include stat-box;
+    color: rgb(71 137 91);
+    background-color: rgb(226 246 234);
+    .icon-container {
+      @include stat-box-icon;
+      background-color: rgb(157, 196, 169);
+
+      .icon {
+        padding: 1px;
+        width: 22px;
+      }
+    }
+    .data-container {
+      .data-title {
+        font-weight: 600;
+      }
+    }
+  }
+  &-remaining {
+    padding: 10px;
+    @include stat-box;
+    color: rgb(214 98 57);
+    background-color: rgb(255 241 232);
+    .icon-container {
+      @include stat-box-icon;
+      background-color: rgb(255, 221, 200);
+
+      .icon {
+        margin: 2px 0 0 3px;
+
+        width: 22px;
+      }
+    }
+    .data-container {
+      .data-title {
+        font-weight: 600;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@import "./variables";
+
+.delete-modal-container {
+  width: 30%;
+  height: 30%;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: 0px 2px 11px gray;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  position: absolute;
+  top: 28%;
+  left: 35%;
+  z-index: 25;
+}
+
+.delete-modal-container .title {
+  display: inline-block;
+  text-align: center;
+  margin: 25px 20px 0 20px;
+  font-size: 21px;
+}
+
+.close-button {
+  display: flex;
+  justify-content: flex-end;
+  .close-delete-modal-icon {
+    cursor: pointer;
+    font-size: 25px;
+    &:hover {
+      @include icon;
+    }
+  }
+}
+
+.delete-modal-container .modal-button-container {
+  flex: 20%;
+  @include flex-center;
+  justify-content: center;
+}
+
+.delete-modal-container .modal-button-container button {
+  width: 120px;
+  height: 45px;
+  margin: 20px 10px 10px 10px;
+  border: none;
+  background-color: rgb(159, 159, 240);
+  color: white;
+  border-radius: 8px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+#cancel-button {
+  border: 3px solid gray;
+  color: gray;
+  background-color: white;
+}

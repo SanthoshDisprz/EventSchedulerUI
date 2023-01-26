@@ -1,0 +1,80 @@
+@import "./variables";
+.search-input-container {
+  @include flex-center;
+  border-radius: 8px;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 #8d6c8e5e;
+  background-color: transparent;
+
+  .search-input {
+    width: 90%;
+    height: 30px;
+    padding: 0 15px;
+    border-radius: 10px;
+    border: none;
+    transition: transform 0.1s ease-in-out;
+    background-color: transparent;
+    ::-webkit-input-placeholder {
+      font-family: 'Lato', sans-serif;
+    }
+    
+    :-ms-input-placeholder {
+      font-family: 'Lato', sans-serif;
+    }
+    
+    :-moz-placeholder {
+      font-family: 'Lato', sans-serif;
+    }
+    
+    ::-moz-placeholder {
+      font-family: 'Lato', sans-serif;
+    }
+  }
+  .search-icon {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  ::placeholder {
+    color: #818181;
+  }
+
+  /* hide the placeholder text on focus */
+  :focus::placeholder {
+    text-indent: -999px;
+  }
+
+  .search-input:focus {
+    outline: none;
+    transform: scale(1.02);
+    transition: all 0.1s ease-in-out;
+  }
+
+  .search-input-icon {
+    color: #a1a1a1;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .container:focus-within > .search-input-container > .search-input-icon {
+    right: 4px;
+  }
+}
+.search-appointments-input-container{
+  left: 73%;
+  top: 17%;
+  width: 22%;
+  box-shadow: 0 8px 32px 0 #a1a1a15e;
+  .search-input{
+    height: 35px;
+  }
+}
+.search-close-icon{
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+

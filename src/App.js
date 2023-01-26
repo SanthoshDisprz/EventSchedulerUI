@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Scheduler from "./Views/Scheduler";
+const App = () => {
+  const [searchTitle, setSearchTitle] = useState("");
+  const [canShowSearchResults, setCanShowSearchResults] = useState(false);
+  const handleSearchTitle = (title) => {
+    setSearchTitle(title);
+  };
+  const closeSearch=()=>{
+    setSearchTitle("")
+  }
+  const handleSearchResults = (bool) => {
+    setCanShowSearchResults(bool);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header searchTitle={searchTitle} handleSearchTitle={handleSearchTitle} onSearch={handleSearchResults} onClose={closeSearch}/>
+      <Scheduler canShowSearchResults={canShowSearchResults} searchTitle={searchTitle} handleSearchResults={handleSearchResults}/>
+    </>
   );
-}
+};
 
 export default App;

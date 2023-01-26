@@ -1,0 +1,10 @@
+.menu-option-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover{
+        color: rgb(127, 195, 255);
+    }
+}

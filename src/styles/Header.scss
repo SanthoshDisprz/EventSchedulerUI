@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,600;1,700&display=swap');
+.navbar{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    height: 55px;
+    background-color: white;
+    padding: 20px;
+    .website-icon-name-container{
+        display: flex;
+        column-gap: 5px;
+        justify-content: center;
+        align-items: center;
+    }
+    .scheduler-icon{
+        width: 45px;
+    }
+    .website-name{
+    font-size: 30px;
+    font-weight: 600;
+    color: #4491fb;
+    font-family: 'Raleway', sans-serif;
+    }
+    .profile-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 3px;
+        .user-image{
+            width: 38px;
+            border-radius: 50%;
+        }
+        .user-options-icon{
+            font-size: 20px;
+            cursor: pointer;
+        }
+    }
+    
+}

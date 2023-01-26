@@ -1,0 +1,37 @@
+@import "./variables";
+.month-calendar-header{
+position: absolute;
+left: 38%;
+top: 9.5%;
+display: flex;
+    font-size: 18px;
+    column-gap: 20px;
+    align-items: center;
+    background-color: white;
+    padding: 9px;
+    border-radius: 8px;
+    .month-year-container{
+        width: 180px;
+        margin-left: 10px
+    // align-items: center;
+    // display: flex;
+    // justify-content: center;
+    }
+    .today-icon{
+        cursor: pointer;
+    }
+    .navigation-icons-container{
+        // display: flex;
+        @include flex-center;
+        column-gap: 15px;
+        .previous-month-navigator-icon,.next-month-navigator-icon{
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+                &:hover {
+                    background-color: rgb(159, 158, 158);
+                  }
+            
+        }
+    }
+}

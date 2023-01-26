@@ -1,0 +1,114 @@
+@import "./variables.scss";
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(200, 200, 200, 0.5);
+  position: absolute;
+  @include flex-center;
+  justify-content: center;
+  z-index: 2;
+
+  .modal-container {
+    overflow-y: auto;
+    width: 35%;
+    height: 65%;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0px 2px 11px grey;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    position: relative;
+    z-index: 10;
+    @include modal-popup;
+    .create-appointment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .create-appointment-heading {
+        font-size: 20px;
+      }
+    }
+
+    input,
+    label {
+      font-size: 16px;
+      font-family: "Lato";
+    }
+    .end-time{
+      margin-left: 7px;
+    }
+    .invalid-mail-alert{
+      color: red;
+    }
+
+    .appointment-details {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      row-gap: 30px;
+      .empty-title-alert{
+        color: red;
+        font-size: 16px;
+      }
+    }
+    .appointment-title,
+    .appointment-location,
+    .description {
+      outline: none;
+      border-bottom: 1px solid grey;
+    }
+    .appointment-period-container {
+      display: flex;
+      column-gap: 30px;
+      .icon-label-container {
+        @include flex-center;
+        column-gap: 5px;
+      }
+      input {
+        border-radius: 10px;
+        &:hover {
+          background-color: rgb(167, 162, 162);
+        }
+      }
+    }
+    .description {
+      font-size: 16px;
+      font-family: "Lato";
+      resize: none;
+    }
+
+    .close-button {
+      font-size: 22px;
+      cursor: pointer;
+      border-radius: 50%;
+      &:hover {
+        @include icon;
+      }
+    }
+
+    .modal-button-container {
+      flex: 20%;
+      @include flex-center;
+      margin-top: 20px;
+
+      button {
+        width: 120px;
+        height: 40px;
+        margin-left: 10px;
+        border: none;
+        background-color: #8272f9;
+        color: white;
+        border-radius: 8px;
+        font-size: 17px;
+        cursor: pointer;
+      }
+    }
+
+    #cancel-button {
+      border: 2px solid #8272f9;
+      color: #8272f9;
+      background-color: white;
+    }
+  }
+}

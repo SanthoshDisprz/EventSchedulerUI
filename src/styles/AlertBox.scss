@@ -1,0 +1,93 @@
+@import "../styles/variables";
+.alert-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  z-index: 20;
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid #efefda;
+  box-shadow: 0px 0px 3px 1px #ccc;
+  padding: 8px;
+  background-color: #fff;
+
+  .success {
+    color: green;
+    .alert-icon {
+      @include alert-icon;
+      border: 5px solid green;
+    }
+  }
+
+  .error {
+    color: red;
+
+    .alert-icon {
+      @include alert-icon;
+      border: 5px solid red;
+    }
+  }
+
+  @keyframes reveal {
+    0% {
+      border: 5px solid transparent;
+      color: transparent;
+      transform: rotate(1000deg);
+    }
+    25% {
+      border-top: 5px solid gray;
+      color: transparent;
+    }
+    50% {
+      border-right: 5px solid gray;
+      border-left: 5px solid gray;
+      color: transparent;
+    }
+    75% {
+      border-bottom: 5px solid gray;
+      color: gray;
+    }
+    100% {
+      border: 5px solid gray;
+    }
+  }
+  .alert {
+    font-size: 18px;
+    text-align: center;
+    width: 280px;
+    height: 55px;
+    position: absolute;
+
+    &::before {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      border-radius: 100%;
+      inset: 20px 0px 0px 100px;
+      border: 5px solid gray;
+      animation-name: reveal;
+      animation-duration: 1.5s;
+      animation-timing-function: ease-in-out;
+    }
+    .alert-message {
+      opacity: 0;
+      animation-name: reveal-message;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-delay: 1.5s;
+      animation-fill-mode: forwards;
+
+      @keyframes reveal-message {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
