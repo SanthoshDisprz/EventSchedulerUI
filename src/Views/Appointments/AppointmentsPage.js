@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import "../../styles/AppointmentsPage.scss";
 import TimelineView from "./Day View/TimelineView";
 import dayjs from "dayjs";
-import { AppointmentContext } from "../../Views/Scheduler/Scheduler";
+import { AppointmentContext } from "../../Views/Scheduler";
 import { default as MonthView } from "../../components/Calendar";
 import WeekView from "../Appointments/Day View/WeekView";
 import MonthViewHeader from "./Month View/MonthViewHeader";

@@ -1,7 +1,7 @@
 import "../../../styles/TimelineView.scss";
 import dayjs from "dayjs";
 import { useContext } from "react";
-import { AppointmentContext } from "../../../Views/Scheduler/Scheduler";
+import { AppointmentContext } from "../../../Views/Scheduler";
 //timeline view component
 const TimelineView = ({ appointments, appointmentDetailsHandler, selectedDate }) => {
   const appointmentContext = useContext(AppointmentContext);

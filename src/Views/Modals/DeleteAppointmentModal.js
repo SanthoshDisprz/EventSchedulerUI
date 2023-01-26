@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import "../../styles/DeleteAppointmentModal.scss";
 import ReactDOM from "react-dom";
-import { AlertContext, AppointmentContext } from "../Scheduler/Scheduler";
+import { AlertContext, AppointmentContext } from "../Scheduler";
 import { MdOutlineClose } from "react-icons/md";
 //delete appointment modal
 const DeleteAppointmentModal = ({ id, onDelete, closeAppointmentDetails }) => {

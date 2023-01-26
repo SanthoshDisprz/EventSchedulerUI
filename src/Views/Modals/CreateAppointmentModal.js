@@ -7,7 +7,7 @@ import { MdOutlineClose } from "react-icons/md";
 import TextareaAutosize from "react-textarea-autosize";
 import GuestsList from "../../components/GuestsList";
 import GuestsListInput from "../../components/GuestsListInput";
-import { AlertContext, AppointmentContext } from "../Scheduler/Scheduler";
+import { AlertContext, AppointmentContext } from "../Scheduler";
 import axios from "axios";
 import Loader from "../../components/Loader";
 

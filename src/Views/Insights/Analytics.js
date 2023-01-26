@@ -3,7 +3,7 @@ import Chart from "../Insights/Chart";
 import DropDownButton from "../../components/DropDownButton";
 import Insights from "../Insights/Insights";
 import dayjs from "dayjs";
-import { AppointmentContext } from "../Scheduler/Scheduler";
+import { AppointmentContext } from "../Scheduler";
 import axios from "axios";
 //component for showing insights and analytics
 const Analytics = ({ onCreateAppointment }) => {

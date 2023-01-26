@@ -1,5 +1,5 @@
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import { MdOutlineClose } from "react-icons/md";
+import { IoMdArrowBack } from "react-icons/io";
 import "../../styles/SearchResults.scss";
 import Appointment from "../../components/Appointment";
 import NoResultsFoundImage from "../../assets/NoResultsFound.jpg"
@@ -7,8 +7,9 @@ import { RxChevronLeft, RxChevronRight } from "react-icons/rx";
 const SearchResults = ({ appointments, handlePageNumber, handleSearchResults, handleAppointmentDetails, currentPage }) => {
     return (
         <div className="search-results">
-            <div className="search-results-header">Search Results
-                <MdOutlineClose className="close-search-icon" onClick={() => handleSearchResults(false)} title="Close" /></div>
+            <div className="search-results-header">
+                <IoMdArrowBack className="close-search-icon" onClick={() => handleSearchResults(false)} title="Go back" />
+                <div className="search-results-title">Search Results</div></div>
             <div className="search-results-container">
                 <div className="search-results-appointments">
                     {appointments.appointments.length > 0 ?

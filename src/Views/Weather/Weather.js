@@ -67,6 +67,9 @@ const Weather = () => {
   const handleSearchInput=(input)=>{
     setSearchInput(input);
   }
+  const closeSearch=()=>{
+    setSearchInput("")
+  }
 
   useEffect(() => {
     fetchWeather();
@@ -81,6 +84,7 @@ const Weather = () => {
         searchInput={searchInput}
         handleSearchInput={handleSearchInput}
         isFromWeather={true}
+        closeSearch={closeSearch}
         placeholder="Search city"
       />
 
