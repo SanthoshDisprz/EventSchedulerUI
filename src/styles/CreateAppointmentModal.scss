@@ -35,6 +35,12 @@
       font-size: 16px;
       font-family: "Lato";
     }
+    .end-time{
+      margin-left: 7px;
+    }
+    .invalid-mail-alert{
+      color: red;
+    }
 
     .appointment-details {
       margin-top: 40px;
@@ -100,7 +106,7 @@
     }
 
     #cancel-button {
-      border: 3px solid #8272f9;
+      border: 2px solid #8272f9;
       color: #8272f9;
       background-color: white;
     }

@@ -30,6 +30,10 @@ const CreateAppointmentModal = ({ selectedDate, appointmentData }) => {
     location: "",
   });
   const [canShowEmptyTitleAlert, setCanShowEmptyTitleAlert] = useState(false);
+  const [canShowInvalidMailAlert, setCanShowInvalidMailAlert] = useState(false);
+  const handleInvalidMailAlert=(bool)=>{
+    setCanShowInvalidMailAlert(bool);
+  }
   const [canShowLoader, setCanShowLoader] = useState(false);
   //state updating functions for handling
   const appointmentTitleInputHandler = (event) => {
@@ -177,11 +181,12 @@ const CreateAppointmentModal = ({ selectedDate, appointmentData }) => {
               format="MM-DD-YYYY hh:mm"
               value={dayjs(appointment.endTime).format("YYYY-MM-DDTHH:mm")}
               onChange={appointmentEndTimeInputHandler}
+              className="end-time"
               required
             />
           </div>
-          <GuestsListInput onAddGuest={appointmentGuestsHandler} />
-          {/* {renderGuestList()} */}
+          <GuestsListInput onAddGuest={appointmentGuestsHandler} handleInvalidMailAlert={handleInvalidMailAlert}/>
+          {canShowInvalidMailAlert && <div className="invalid-mail-alert">Invalid mail id</div>}
           <GuestsList
             guestsList={appointment.guestsList}
             deleteGuestHandler={deleteGuestHandler}
@@ -211,7 +216,6 @@ const CreateAppointmentModal = ({ selectedDate, appointmentData }) => {
                 type: "CREATE_APPOINTMENT_MODAL",
                 payload: false,
               });
-              // createAppointmentContext.createAppointmentModalHandler(false);
             }}
             id="cancel-button"
           >

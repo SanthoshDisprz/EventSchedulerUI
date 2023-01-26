@@ -53,7 +53,7 @@ const SearchButton = ({
       />
       {searchInput && (
         <MdOutlineClose
-          className="close-icon"
+          className="search-close-icon"
           onClick={closeSearch}
           title="Clear"
         />

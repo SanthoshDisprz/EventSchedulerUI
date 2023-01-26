@@ -10,6 +10,7 @@ import Analytics from "./Insights/Analytics";
 import SearchResults from "./Search Appointments/SearchResults";
 import AppointmentDetails from "./Modals/AppointmentDetails";
 import axios from "axios";
+import {initialState, reducer} from "../reducer/AppointmentReducer"
 export const AppointmentContext = createContext({});
 export const AlertContext = createContext({});
 //global component which is having main components and global states
@@ -18,32 +19,7 @@ const Scheduler = ({
   searchTitle,
   handleSearchResults,
 }) => {
-  //Appointments Initial States
-  const initialState = {
-    isAppointmentCreated: false,
-    canShowCreateAppointmentModal: false,
-    isAppointmentDeleted: false,
-    isAppointmentUpdated: false,
-    canShowUpdateAppointmentModal: false,
-    appointmentData: {},
-  };
-  //Reducer function to update the appointment's state
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "CREATE_APPOINTMENT":
-        return { ...state, isAppointmentCreated: !state.isAppointmentCreated };
-      case "CREATE_APPOINTMENT_MODAL":
-        return { ...state, canShowCreateAppointmentModal: action.payload };
-      case "DELETE_APPOINTMENT":
-        return { ...state, isAppointmentDeleted: !state.isAppointmentDeleted };
-      case "UPDATE_APPOINTMENT":
-        return { ...state, isAppointmentUpdated: !state.isAppointmentUpdated };
-      case "ADD_APPOINTMENT_DATA":
-        return { ...state, appointmentData: action.payload };
-      default:
-        return state;
-    }
-  };
+
   const [appointmentState, dispatchAppointment] = useReducer(
     reducer,
     initialState
